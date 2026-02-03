@@ -634,11 +634,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-8">
           <div className="grid grid-cols-4 gap-8">
             <div>
-              <div className="flex items-center gap-1 mb-4">
-                <span className="text-white font-bold text-2xl">O</span>
-                <span className="text-[#EC2027] font-bold text-2xl">My</span>
-                <span className="text-white font-bold text-2xl">Travel</span>
-              </div>
+            <img src={imgLogo} alt="OMT Logo" className="w-auto h-10" />
               <p className="text-gray-300 text-sm">Your trusted travel partner for unforgettable journeys.</p>
             </div>
             <div>
