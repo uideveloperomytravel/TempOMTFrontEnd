@@ -466,44 +466,42 @@ export default function App() {
 
         {/* Desktop: Large Featured Cards with side images */}
         <div className="hidden lg:grid grid-cols-2 gap-6">
-          <div className="relative h-96 rounded-2xl overflow-hidden shadow-xl group cursor-pointer">
+          <button
+            type="button"
+            onClick={() => handlePackageClick(featuredTours[0].title, featuredTours[0].price, featuredTours[0].image)}
+            className="relative h-96 rounded-2xl overflow-hidden shadow-xl group cursor-pointer text-left"
+          >
             <img 
-              src="https://images.unsplash.com/photo-1471347025057-68ff089f54cd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200" 
-              alt="Hongkong" 
+              src={featuredTours[0].image} 
+              alt={featuredTours[0].title} 
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
             <div className="absolute bottom-0 left-0 p-6 text-white">
-              <h3 className="text-3xl font-bold mb-2">Explore Hongkong</h3>
-              <p className="text-lg">Starting ₹ 21,999 6N/7D</p>
+              <h3 className="text-3xl font-bold mb-2">{featuredTours[0].title}</h3>
+              <p className="text-lg">Starting {featuredTours[0].price} {featuredTours[0].duration}</p>
             </div>
-          </div>
-
+          </button>
           <div className="grid grid-rows-2 gap-6">
-            <div className="relative h-44 rounded-2xl overflow-hidden shadow-xl group cursor-pointer">
-              <img 
-                src="https://images.unsplash.com/photo-1716115927980-7fac8b0f96c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200" 
-                alt="Mauritius" 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-              <div className="absolute bottom-0 left-0 p-4 text-white">
-                <h3 className="text-2xl font-bold mb-1">Explore Mauritius</h3>
-                <p className="text-sm">Starting ₹ 24,999 5N/6D</p>
-              </div>
-            </div>
-            <div className="relative h-44 rounded-2xl overflow-hidden shadow-xl group cursor-pointer">
-              <img 
-                src="https://images.unsplash.com/photo-1729864881494-d96345092845?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200" 
-                alt="Kyoto" 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-              <div className="absolute bottom-0 left-0 p-4 text-white">
-                <h3 className="text-2xl font-bold mb-1">Explore Kyoto</h3>
-                <p className="text-sm">Starting ₹ 29,999 7N/8D</p>
-              </div>
-            </div>
+            {featuredTours.slice(1).map((tour) => (
+              <button
+                key={tour.title}
+                type="button"
+                onClick={() => handlePackageClick(tour.title, tour.price, tour.image)}
+                className="relative h-44 rounded-2xl overflow-hidden shadow-xl group cursor-pointer text-left"
+              >
+                <img 
+                  src={tour.image} 
+                  alt={tour.title} 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                <div className="absolute bottom-0 left-0 p-4 text-white">
+                  <h3 className="text-2xl font-bold mb-1">{tour.title}</h3>
+                  <p className="text-sm">Starting {tour.price} {tour.duration}</p>
+                </div>
+              </button>
+            ))}
           </div>
         </div>
 
@@ -591,14 +589,19 @@ export default function App() {
         <h2 className="text-2xl font-bold text-[#203066] mb-6">Exclusive Deals & Offer</h2>
         <div className="grid grid-cols-4 gap-4">
           {exclusiveDeals.map((deal, index) => (
-            <div key={index} className="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer h-64">
+            <button
+              key={index}
+              type="button"
+              onClick={() => handlePackageClick(deal.title, deal.discount, deal.image)}
+              className="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer h-64 text-left"
+            >
               <img src={deal.image} alt={deal.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
               <div className="absolute bottom-0 left-0 p-4 text-white">
                 <h3 className="text-lg font-bold mb-1">{deal.title}</h3>
                 <p className="text-sm">{deal.discount}</p>
               </div>
-            </div>
+            </button>
           ))}
         </div>
       </section>
@@ -726,6 +729,7 @@ export default function App() {
       {/* Package Enquiry Popup */}
       {isPopupOpen && selectedPackage && (
         <PackageEnquiryPopup 
+          isOpen={isPopupOpen}
           packageDetails={selectedPackage} 
           onClose={() => setIsPopupOpen(false)}
         />
